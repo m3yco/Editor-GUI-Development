@@ -1,4 +1,6 @@
 package GUI;
+import java.util.ResourceBundle;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
@@ -7,10 +9,11 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
 
 public class TabElement {
+	private ResourceBundle messages;
 	
-	public static void createTab(CTabFolder folder, Color color) {
+	public static void createTab(CTabFolder folder, Color color, ResourceBundle rb) {
 		CTabItem tabItem = new CTabItem(folder, SWT.NONE);
-		tabItem.setText("new.txt");
+		tabItem.setText(rb.getString("newTxt"));
 		tabItem.setControl(openText(folder, color));
 		folder.setSelection(tabItem);
 	}

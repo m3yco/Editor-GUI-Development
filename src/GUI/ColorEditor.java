@@ -1,4 +1,6 @@
 package GUI;
+import java.util.ResourceBundle;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -24,9 +26,11 @@ public class ColorEditor extends Dialog{
 	private Group gSpinner;
 	private Spinner [] spinBoxRGB;
 	private Button buttonOK, buttonCancel;
+	private ResourceBundle messages;
 	
-	public ColorEditor(Shell parent, int style) {
+	public ColorEditor(Shell parent, int style, ResourceBundle rb) {
 		super(parent, style);
+		this.messages = rb;
 	}
 		public Object open() {
 			Shell dialogShell = new Shell(getParent());
@@ -45,16 +49,16 @@ public class ColorEditor extends Dialog{
 		}
 		
 		public void createContent(Shell shell) {
-			//Shell Layout
+			//Shell Layout			
 			GridLayout layout = new GridLayout(2,true);
 			shell.setLayout(layout);
 			int [] rgbvalues = new int[3];
 			
-			shell.setText("Text Editor");
+			shell.setText(messages.getString("colorEditor"));
 			
 			//Label Text
 			textLabel = new Label(shell,SWT.LEFT);
-			textLabel.setText("Please enter the text foreground color");
+			textLabel.setText(messages.getString("colorTextLabel"));
 			GridData labelData = new GridData(SWT.FILL,SWT.FILL,true,true,2,1);
 			textLabel.setLayoutData(labelData);
 			
@@ -70,7 +74,7 @@ public class ColorEditor extends Dialog{
 			//Spinner RGB
 			gSpinner = new Group(shell,SWT.NO_RADIO_GROUP | SWT.SHADOW_ETCHED_IN);
 			// Verhalten innerhalb der Zelle innerhalb der Shell
-			gSpinner.setText("Text Color");
+			gSpinner.setText(messages.getString("colorSpinner"));
 			GridData gdataGroup = new GridData(SWT.FILL,SWT.FILL,true,true,1,2);
 			gSpinner.setLayoutData(gdataGroup);
 			
@@ -91,18 +95,18 @@ public class ColorEditor extends Dialog{
 				spinBoxRGB[i].setMaximum(0);
 				spinBoxRGB[i].setMaximum(255);
 			}
-			colorNames[0].setText("red");
-			colorNames[1].setText("green");
-			colorNames[2].setText("blue");
+			colorNames[0].setText(messages.getString("red"));
+			colorNames[1].setText(messages.getString("green"));
+			colorNames[2].setText(messages.getString("blue"));
 			
 			//Buttons
 			GridData buttonData = new GridData(SWT.FILL,SWT.FILL,true,true,1,1);
 			buttonOK = new Button(shell, SWT.PUSH);
-			buttonOK.setText("Ok");
+			buttonOK.setText(messages.getString("colorButtonOk"));
 			buttonOK.setLayoutData(buttonData);
 			
 			buttonCancel = new Button(shell, SWT.PUSH);
-			buttonCancel.setText("Cancel");
+			buttonCancel.setText(messages.getString("colorButtonCancel"));
 			buttonCancel.setLayoutData(buttonData);
 			
 			//Anonyme Modify Listener für die Farbauswahl

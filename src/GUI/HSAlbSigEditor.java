@@ -79,30 +79,30 @@ public class HSAlbSigEditor {
 	 	
 	 	// Item File mit Elemte befüllen
 	 	fileNewItem = new MenuItem(fileMenu, SWT.PUSH);
-	 	fileNewItem.setText("&New\tCtrl+N");
+	 	fileNewItem.setText(messages.getString("fileNewItem"));
 	 	fileNewItem.setAccelerator(SWT.CTRL + 'N');
 	 	
 	 	fileOpenItem = new MenuItem(fileMenu, SWT.PUSH);
-	 	fileOpenItem.setText("&Open ...\tCtrl+O");
+	 	fileOpenItem.setText(messages.getString("fileOpenItem"));
 	 	fileOpenItem.setAccelerator(SWT.CTRL + 'O');
 	 	
 	 	fileSaveItem = new MenuItem(fileMenu, SWT.PUSH);
-	 	fileSaveItem.setText("&Save ...\tCtrl+S");
+	 	fileSaveItem.setText(messages.getString("fileSaveItem"));
 	 	fileSaveItem.setAccelerator(SWT.CTRL + 'S');
 	 	//fileSaveItem.addSelectionListener(new SelectionAdapterSave(textField));
 	 	
 	 	fileQuitItem = new MenuItem(fileMenu, SWT.PUSH);
-	 	fileQuitItem.setText("&Quit\tCtrl+Q");
+	 	fileQuitItem.setText(messages.getString("fileQuitItem"));
 	 	fileQuitItem.setAccelerator(SWT.CTRL + 'Q');
 	 	
 	 	// Item Edit mit Elemente befüllen
 	 	editTextColorItem = new MenuItem(editMenu, SWT.PUSH);
-	 	editTextColorItem.setText("&Text Color\tCtrl+C");
+	 	editTextColorItem.setText(messages.getString("editColorItem"));
 	 	editTextColorItem.setAccelerator(SWT.CTRL + 'C');
 	 	
 	 	// Item Help mit Elemente befüllen
 	 	helpHelpItem = new MenuItem(helpMenu, SWT.PUSH);
-	 	helpHelpItem.setText("&Version \tCtrl+V");
+	 	helpHelpItem.setText(messages.getString("helpItem"));
 	 	helpHelpItem.setAccelerator(SWT.CTRL + 'V');
 	}
 	
@@ -141,7 +141,7 @@ public class HSAlbSigEditor {
 	
 	public void createTabItem(CTabFolder parent) {
 		color = new Color(display,0,0,0);
-		TabElement.createTab(parent, color);
+		TabElement.createTab(parent, color, messages);
 	}
 	
 	public void createListeners() {
@@ -151,7 +151,7 @@ public class HSAlbSigEditor {
 				CTabItem [] allMyItems = tabFolder.getItems();
 				
 				MessageBox question = new MessageBox(shell,SWT.ICON_QUESTION | SWT.YES | SWT.NO | SWT.CANCEL);
-				question.setMessage("Wollen Sie wirkllich ohne Speichern die Anwendung schließen?");
+				question.setMessage(messages.getString("question"));
 				int answerQuit = question.open();
 				
 				// Schleife über alle Items
@@ -183,9 +183,9 @@ public class HSAlbSigEditor {
 			}
 		});
 		
-		fileQuitItem.addSelectionListener(new SelectionAdapterQuit(tabFolder));
-		helpHelpItem.addSelectionListener(new SelectionAdapterHelp(shell));
-		fileNewItem.addSelectionListener(new SelectionAdapterNew(tabFolder, color));
+		fileQuitItem.addSelectionListener(new SelectionAdapterQuit(tabFolder, messages));
+		helpHelpItem.addSelectionListener(new SelectionAdapterHelp(shell, messages));
+		fileNewItem.addSelectionListener(new SelectionAdapterNew(tabFolder, color, messages));
 		fileOpenItem.addSelectionListener(new SelectionAdapterOpen(shell, tabFolder));
 		fileSaveItem.addSelectionListener(new SelectionAdapterSave(shell, tabFolder));
 		
@@ -195,7 +195,7 @@ public class HSAlbSigEditor {
 		editTextColorItem.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				ColorEditor edit = new ColorEditor(shell, shell.getStyle());
+				ColorEditor edit = new ColorEditor(shell, shell.getStyle(), messages);
 				color = (Color) edit.open();
 				Text text =  (Text) tabFolder.getSelection().getControl();
 				text.setForeground(color);
@@ -222,5 +222,9 @@ public class HSAlbSigEditor {
 			}// end if
 		}// end while
 	}// end method
+	
+	public ResourceBundle getMessageBundle() {
+		return this.messages;
+	}
 		
 }

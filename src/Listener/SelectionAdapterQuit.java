@@ -1,4 +1,6 @@
 package Listener;
+import java.util.ResourceBundle;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
@@ -11,9 +13,11 @@ import org.eclipse.swt.widgets.Shell;
 public class SelectionAdapterQuit extends SelectionAdapter {
 
 	private CTabFolder allTabs;
+	private ResourceBundle messages;
 	
-	public SelectionAdapterQuit(CTabFolder allTabs) {
+	public SelectionAdapterQuit(CTabFolder allTabs, ResourceBundle rb) {
 		this.allTabs = allTabs;
+		this.messages  = rb;
 	}
 	
 	public void widgetSelected(SelectionEvent e) {
@@ -21,7 +25,7 @@ public class SelectionAdapterQuit extends SelectionAdapter {
 		Shell shell = (Shell)allTabs.getParent();
 		
 		MessageBox question = new MessageBox(shell,SWT.ICON_QUESTION | SWT.YES | SWT.NO | SWT.CANCEL);
-		question.setMessage("Wollen Sie wirkllich ohne Speichern die Anwendung schließen?");
+		question.setMessage(messages.getString("question"));
 		int answerQuit = question.open();
 		
 		// Schleife über alle Items

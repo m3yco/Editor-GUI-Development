@@ -4,6 +4,7 @@ import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
@@ -22,6 +23,12 @@ public class SelectionAdapterSave extends SelectionAdapter{
 		Text text =  (Text) item.getControl();
 		FileDialog fileSave = new FileDialog(shell, SWT.SAVE);
 		String fileName = fileSave.open();
+		Color c = text.getForeground();
+		int red = c.getRed();
+		int green = c.getGreen();
+		int blue = c.getBlue();
+		
+		//XML Parster Write!
 		FileIO.write(fileName, text.getText());
 		item.setText(fileName);
 	}

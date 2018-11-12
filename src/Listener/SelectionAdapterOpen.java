@@ -21,11 +21,12 @@ public class SelectionAdapterOpen extends SelectionAdapter{
 		FileDialog fileOpen = new FileDialog(shell, SWT.OPEN);
 		try {
 			String fileName = fileOpen.open();
+			// XML Parser Open!!
 			String contentText = FileIO.read(fileName);
 			TabElement.createTab(parent, fileName, contentText);
 		}
 		catch (NullPointerException n){
-			// dispose
+			// wenn kein Name oder Datei gewählt worden ist!
 		}
 	}
 

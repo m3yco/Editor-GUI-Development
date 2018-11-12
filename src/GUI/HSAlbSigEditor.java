@@ -4,10 +4,14 @@ import java.util.ResourceBundle;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.*;
 
+import Listener.FileIO;
 import Listener.SelectionAdapterHelp;
 import Listener.SelectionAdapterNew;
 import Listener.SelectionAdapterOpen;
@@ -141,6 +145,43 @@ public class HSAlbSigEditor {
 	}
 	
 	public void createListeners() {
+		
+		shell.addDisposeListener(new DisposeListener() {
+			public void widgetDisposed(DisposeEvent event) {
+				CTabItem [] allMyItems = tabFolder.getItems();
+				
+				MessageBox question = new MessageBox(shell,SWT.ICON_QUESTION | SWT.YES | SWT.NO | SWT.CANCEL);
+				question.setMessage("Wollen Sie wirkllich ohne Speichern die Anwendung schließen?");
+				int answerQuit = question.open();
+				
+				// Schleife über alle Items
+				//		Textfeld aus allMyITems[i] abfragen mit getControl()
+				//		Inhalt aus Texfeld abfragen mit getText()
+				//		ggf über FileDialog afragen, wie Datei heißen soll
+				//		Inhalt über FileIO abspeichern
+				
+				//		Ganz am Schluss: alles disposen mit shell.dispose()
+				switch(answerQuit) {
+				case SWT.YES:	
+					shell.dispose(); 
+					break;
+				case SWT.NO:	
+					for(CTabItem a : allMyItems) {
+						a.getControl();
+						FileDialog dlg = new FileDialog(shell,SWT.SAVE);
+						String filename = dlg.open();
+						String content = a.getText();
+						if(filename != null) {
+							FileIO.write(filename, content);
+							}
+					}
+					break;
+				case SWT.CANCEL:
+					break;
+				}
+				
+			}
+		});
 		
 		fileQuitItem.addSelectionListener(new SelectionAdapterQuit(tabFolder));
 		helpHelpItem.addSelectionListener(new SelectionAdapterHelp(shell));

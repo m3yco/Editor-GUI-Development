@@ -1,4 +1,7 @@
 package GUI;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -34,6 +37,8 @@ public class HSAlbSigEditor {
     
     private CTabFolder tabFolder;
     private Color color;
+    
+    private ResourceBundle messages;
 	
 	private void createDisplay() {
 		display = new Display();
@@ -48,24 +53,23 @@ public class HSAlbSigEditor {
 		shell.setText("HS AlbSig Editor");
 		Image small = new Image(display,"pictures/hsalbsig_icon.gif");
 		shell.setImage(small);
-		String menuItems[] = {"&File", "&Edit", "&Help"};
 	        
 	    menuBar = new Menu(shell, SWT.BAR);
 	    shell.setMenuBar(menuBar);
 	    
 	    // Toolbar mit Items befüllen
 	    fileTitle = new MenuItem(menuBar, SWT.CASCADE);
-	    fileTitle.setText(menuItems[0]);
+	    fileTitle.setText(messages.getString("menu1"));
 	 	fileMenu = new Menu(shell, SWT.DROP_DOWN);
 	 	fileTitle.setMenu(fileMenu);
 	 
 	 	editTitle = new MenuItem(menuBar, SWT.CASCADE);
-	 	editTitle.setText(menuItems[1]);
+	 	editTitle.setText(messages.getString("menu2"));
 	 	editMenu = new Menu(shell, SWT.DROP_DOWN);
 	 	editTitle.setMenu(editMenu);
 	 	
 	 	helpTitle = new MenuItem(menuBar, SWT.CASCADE);
-	 	helpTitle.setText(menuItems[2]);
+	 	helpTitle.setText(messages.getString("menu3"));
 	 	helpMenu = new Menu(shell, SWT.DROP_DOWN);
 	 	helpTitle.setMenu(helpMenu);
 	 	
@@ -158,7 +162,8 @@ public class HSAlbSigEditor {
 		});
 	}
 	
-	public HSAlbSigEditor() {
+	public HSAlbSigEditor(ResourceBundle rb) {
+		this.messages = rb;
 		createDisplay();
 		createShell();
 		createMenu();

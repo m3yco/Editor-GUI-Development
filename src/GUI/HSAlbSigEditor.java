@@ -63,17 +63,17 @@ public class HSAlbSigEditor {
 	    
 	    // Toolbar mit Items befüllen
 	    fileTitle = new MenuItem(menuBar, SWT.CASCADE);
-	    fileTitle.setText(messages.getString("menu1"));
+	    fileTitle.setText(messages.getString("menuFile"));
 	 	fileMenu = new Menu(shell, SWT.DROP_DOWN);
 	 	fileTitle.setMenu(fileMenu);
 	 
 	 	editTitle = new MenuItem(menuBar, SWT.CASCADE);
-	 	editTitle.setText(messages.getString("menu2"));
+	 	editTitle.setText(messages.getString("menuEdit"));
 	 	editMenu = new Menu(shell, SWT.DROP_DOWN);
 	 	editTitle.setMenu(editMenu);
 	 	
 	 	helpTitle = new MenuItem(menuBar, SWT.CASCADE);
-	 	helpTitle.setText(messages.getString("menu3"));
+	 	helpTitle.setText(messages.getString("menuHelp"));
 	 	helpMenu = new Menu(shell, SWT.DROP_DOWN);
 	 	helpTitle.setMenu(helpMenu);
 	 	

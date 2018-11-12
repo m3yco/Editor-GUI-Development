@@ -33,8 +33,6 @@ public class HSAlbSigEditor {
     private Button buttonOpen, buttonSave;
     
     private CTabFolder tabFolder;
-    
-    //Color private?
     private Color color;
 	
 	private void createDisplay() {
@@ -43,7 +41,6 @@ public class HSAlbSigEditor {
 	
 	private void createShell() {
 		shell = new Shell(display);
-		//shell.setLayout(new FillLayout(SWT.VERTICAL));
 		shell.setLayout(new GridLayout(1,true));
 	}
 	
@@ -137,7 +134,6 @@ public class HSAlbSigEditor {
 	public void createTabItem(CTabFolder parent) {
 		color = new Color(display,0,0,0);
 		TabElement.createTab(parent, color);
-		//TabElemet.setDefaltColor();
 	}
 	
 	public void createListeners() {
@@ -156,8 +152,8 @@ public class HSAlbSigEditor {
 			public void widgetSelected(SelectionEvent arg0) {
 				ColorEditor edit = new ColorEditor(shell, shell.getStyle());
 				color = (Color) edit.open();
-				//TabItem.SetColor(folder,color); TODO????
-				//Offnen Speicher New Exceptionwurf!!!
+				Text text =  (Text) tabFolder.getSelection().getControl();
+				text.setForeground(color);
 			}
 		});
 	}

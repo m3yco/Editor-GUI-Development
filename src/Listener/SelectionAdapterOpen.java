@@ -19,9 +19,14 @@ public class SelectionAdapterOpen extends SelectionAdapter{
 	
 	public void widgetSelected(SelectionEvent e) {
 		FileDialog fileOpen = new FileDialog(shell, SWT.OPEN);
-		String fileName = fileOpen.open();
-		String contentText = FileIO.read(fileName);
-		TabElement.createTab(parent, fileName, contentText);
+		try {
+			String fileName = fileOpen.open();
+			String contentText = FileIO.read(fileName);
+			TabElement.createTab(parent, fileName, contentText);
+		}
+		catch (NullPointerException n){
+			// dispose
+		}
 	}
 
 }

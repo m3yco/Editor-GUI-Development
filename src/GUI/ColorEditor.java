@@ -60,7 +60,7 @@ public class ColorEditor extends Dialog{
 			
 			//Label Color
 			colorLabel = new Label(shell, SWT.CENTER);
-			colorLabel.setBackground(new Color(shell.getDisplay(),255,0,0));
+			colorLabel.setBackground(new Color(shell.getDisplay(),0,0,0));
 			// Parameter 1 & 2: Ausrichtungsverhalten innerhalt der Zelle
 			// Parameter 3 & 4: Mitwachsen mit Zelle in x/y Richtung
 			// Parameter 5 & 6: Ausdehnung innerhalb der Zelle(n)
@@ -144,7 +144,7 @@ public class ColorEditor extends Dialog{
 				
 				@Override
 				public void widgetSelected(SelectionEvent arg0) {
-					returnColor = new Color(shell.getDisplay(),rgbvalues[0], rgbvalues[0], rgbvalues[0]);
+					returnColor = new Color(shell.getDisplay(),rgbvalues[0], rgbvalues[1], rgbvalues[2]);
 					shell.dispose();
 				}
 				

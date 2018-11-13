@@ -1,5 +1,4 @@
 package GUI;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.eclipse.swt.SWT;
@@ -89,7 +88,6 @@ public class HSAlbSigEditor {
 	 	fileSaveItem = new MenuItem(fileMenu, SWT.PUSH);
 	 	fileSaveItem.setText(messages.getString("fileSaveItem"));
 	 	fileSaveItem.setAccelerator(SWT.CTRL + 'S');
-	 	//fileSaveItem.addSelectionListener(new SelectionAdapterSave(textField));
 	 	
 	 	fileQuitItem = new MenuItem(fileMenu, SWT.PUSH);
 	 	fileQuitItem.setText(messages.getString("fileQuitItem"));
@@ -163,7 +161,7 @@ public class HSAlbSigEditor {
 				//		Ganz am Schluss: alles disposen mit shell.dispose()
 				switch(answerQuit) {
 				case SWT.YES:	
-					shell.dispose(); 
+					shell.dispose();
 					break;
 				case SWT.NO:	
 					for(CTabItem a : allMyItems) {
@@ -172,9 +170,11 @@ public class HSAlbSigEditor {
 						String filename = dlg.open();
 						String content = a.getText();
 						if(filename != null) {
+							// mit XMLwrite ergänzen!
 							FileIO.write(filename, content);
 							}
 					}
+					shell.dispose(); 
 					break;
 				case SWT.CANCEL:
 					break;

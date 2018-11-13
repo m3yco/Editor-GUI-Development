@@ -9,6 +9,8 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import XMLparser.XMLwrite;
+
 public class SelectionAdapterSave extends SelectionAdapter{
 	private Shell shell;
 	private CTabFolder parent;
@@ -23,13 +25,18 @@ public class SelectionAdapterSave extends SelectionAdapter{
 		Text text =  (Text) item.getControl();
 		FileDialog fileSave = new FileDialog(shell, SWT.SAVE);
 		String fileName = fileSave.open();
-		Color c = text.getForeground();
-		int red = c.getRed();
-		int green = c.getGreen();
-		int blue = c.getBlue();
-		
-		//XML Parster Write!
-		FileIO.write(fileName, text.getText());
-		item.setText(fileName);
+		if(fileName != null) {
+			Color c = text.getForeground();
+			
+			//FileIO.write(fileName, text.getText());
+			//item.setText(fileName);
+			
+			//XML Parster Write!
+			XMLwrite writer = new XMLwrite();
+			writer.writeDown(fileName, text.getText(), c);
+			int index = fileName.lastIndexOf("\\");
+			String n = fileName.substring(index + 1);
+			item.setText(n);
+		}
 	}
 }

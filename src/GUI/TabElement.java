@@ -9,7 +9,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
 
 public class TabElement {
-	private ResourceBundle messages;
 	
 	public static void createTab(CTabFolder folder, Color color, ResourceBundle rb) {
 		CTabItem tabItem = new CTabItem(folder, SWT.NONE);
@@ -18,10 +17,13 @@ public class TabElement {
 		folder.setSelection(tabItem);
 	}
 	
-	public static void createTab(CTabFolder folder, String name, String content) {
+	//Color dazu!!!
+	public static void createTab(CTabFolder folder, String name, String content, Color c) {
 		CTabItem tabItem = new CTabItem(folder, SWT.NONE);
-		tabItem.setText(name);
-		tabItem.setControl(openText(folder,content));
+		int index = name.lastIndexOf("\\");
+		String n = name.substring(index + 1);
+		tabItem.setText(n);
+		tabItem.setControl(openText(folder,content,c));
 		folder.setSelection(tabItem);
 	}
 	
@@ -33,11 +35,12 @@ public class TabElement {
 		return textField;
 	}
 	
-	public static Text openText(CTabFolder folder, String content) {
+	public static Text openText(CTabFolder folder, String content, Color c) {
 		Text textField = new Text(folder, SWT.BORDER | SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 		GridData gdataText = new GridData(SWT.FILL,SWT.FILL,true,true,2,1);
 		textField.setLayoutData(gdataText);
 		textField.setText(content);
+		textField.setForeground(c);
 		return textField;
 	}
 	

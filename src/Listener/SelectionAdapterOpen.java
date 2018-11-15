@@ -1,4 +1,5 @@
 package Listener;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -7,6 +8,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 
 import GUI.TabElement;
+import XMLparser.XMLread;
 
 public class SelectionAdapterOpen extends SelectionAdapter{
 	private Shell shell;
@@ -22,8 +24,13 @@ public class SelectionAdapterOpen extends SelectionAdapter{
 		try {
 			String fileName = fileOpen.open();
 			// XML Parser Open!!
-			String contentText = FileIO.read(fileName);
-			TabElement.createTab(parent, fileName, contentText);
+			if(fileName != null) {
+//				String contentText = FileIO.read(fileName);
+//				TabElement.createTab(parent, fileName, contentText);
+				XMLread reader = new XMLread(fileName, shell);
+				TabElement.createTab(parent, fileName, reader.getText(), reader.getColor());
+				
+			}
 		}
 		catch (NullPointerException n){
 			// wenn kein Name oder Datei gewählt worden ist!

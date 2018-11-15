@@ -37,7 +37,7 @@ public class SelectionAdapterQuit extends SelectionAdapter {
 		//		Ganz am Schluss: alles disposen mit shell.dispose()
 		switch(answerQuit) {
 		case SWT.YES:	
-			shell.dispose(); 
+			shell.dispose();
 			break;
 		case SWT.NO:	
 			for(CTabItem a : allMyItems) {
@@ -49,6 +49,7 @@ public class SelectionAdapterQuit extends SelectionAdapter {
 					FileIO.write(filename, content);
 					}
 			}
+			shell.dispose(); 
 			break;
 		case SWT.CANCEL:
 			break;

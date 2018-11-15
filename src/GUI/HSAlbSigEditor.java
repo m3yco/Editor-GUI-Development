@@ -147,6 +147,7 @@ public class HSAlbSigEditor {
 	public void createListeners() {
 		
 		shell.addDisposeListener(new DisposeListener() {
+			@Override
 			public void widgetDisposed(DisposeEvent event) {
 				CTabItem [] allMyItems = tabFolder.getItems();
 				
@@ -177,6 +178,7 @@ public class HSAlbSigEditor {
 					}
 					break;
 				case SWT.CANCEL:
+					//shell.removeDisposeListener(this);
 					break;
 				}
 				

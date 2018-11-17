@@ -24,19 +24,26 @@ public class SelectionAdapterSave extends SelectionAdapter{
 		CTabItem item = parent.getSelection();
 		Text text =  (Text) item.getControl();
 		FileDialog fileSave = new FileDialog(shell, SWT.SAVE);
-		String fileName = fileSave.open();
-		if(fileName != null) {
-			Color c = text.getForeground();
-			
-			//FileIO.write(fileName, text.getText());
-			//item.setText(fileName);
-			
-			//XML Parster Write!
-			XMLwrite writer = new XMLwrite();
-			writer.writeDown(fileName, text.getText(), c);
-			int index = fileName.lastIndexOf("\\");
-			String n = fileName.substring(index + 1);
-			item.setText(n);
+		try {
+			String fileName = fileSave.open();
+			if(fileName != null) {
+				Color c = text.getForeground();
+				
+				//FileIO.write(fileName, text.getText());
+				//item.setText(fileName);
+				
+				//XML Parster Write!
+				XMLwrite writer = new XMLwrite();
+				writer.writeDown(fileName, text.getText(), c);
+				int index = fileName.lastIndexOf("\\");
+				String n = fileName.substring(index + 1);
+				item.setText(n);
+			}
 		}
+		catch (NullPointerException ex) {	
+			// wenn kein Name oder Datei gewählt worden ist!
+		}
+		
+		
 	}
 }

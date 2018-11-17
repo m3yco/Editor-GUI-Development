@@ -6,9 +6,13 @@ import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
+
+import XMLparser.XMLwrite;
 
 public class SelectionAdapterQuit extends SelectionAdapter {
 
@@ -41,13 +45,22 @@ public class SelectionAdapterQuit extends SelectionAdapter {
 			break;
 		case SWT.NO:	
 			for(CTabItem a : allMyItems) {
-				a.getControl();
+				Text text = (Text) a.getControl();
 				FileDialog dlg = new FileDialog(shell,SWT.SAVE);
-				String filename = dlg.open();
-				String content = a.getText();
-				if(filename != null) {
-					FileIO.write(filename, content);
-					}
+				try {
+					String filename = dlg.open();
+					String content = a.getText();
+					if(filename != null) {
+						Color c = text.getForeground();
+						//XML Parser Write!
+						XMLwrite writer = new XMLwrite();
+						writer.writeDown(filename, content, c);
+						}
+				}
+				catch (NullPointerException ex) {
+					// wenn kein Name oder Datei gewählt worden ist!
+				}
+				
 			}
 			shell.dispose(); 
 			break;

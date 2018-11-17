@@ -16,6 +16,7 @@ import Listener.SelectionAdapterNew;
 import Listener.SelectionAdapterOpen;
 import Listener.SelectionAdapterQuit;
 import Listener.SelectionAdapterSave;
+import XMLparser.XMLwrite;
 
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
@@ -166,14 +167,21 @@ public class HSAlbSigEditor {
 					break;
 				case SWT.NO:	
 					for(CTabItem a : allMyItems) {
-						a.getControl();
+						Text text = (Text) a.getControl();
 						FileDialog dlg = new FileDialog(shell,SWT.SAVE);
-						String filename = dlg.open();
-						String content = a.getText();
-						if(filename != null) {
-							// mit XMLwrite ergänzen!
-							FileIO.write(filename, content);
-							}
+						try {
+							String filename = dlg.open();
+							String content = a.getText();
+							if(filename != null) {
+								Color c = text.getForeground();
+								//XML Parser Write!
+								XMLwrite writer = new XMLwrite();
+								writer.writeDown(filename, content, c);
+								}
+						}
+						catch (NullPointerException ex) {
+							// wenn kein Name oder Datei gewählt worden ist!
+						}
 					}
 					shell.dispose(); 
 					break;

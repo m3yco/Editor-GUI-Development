@@ -92,7 +92,7 @@ public class ColorEditor extends Dialog{
 			for(int i =0; i<spinBoxRGB.length; i++) {
 				colorNames[i] = new Label(gSpinner, SWT.CENTER);
 				spinBoxRGB[i] = new Spinner(gSpinner, SWT.NONE);
-				spinBoxRGB[i].setMaximum(0);
+				spinBoxRGB[i].setMinimum(0);
 				spinBoxRGB[i].setMaximum(255);
 			}
 			colorNames[0].setText(messages.getString("red"));

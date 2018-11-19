@@ -49,12 +49,13 @@ public class SelectionAdapterQuit extends SelectionAdapter {
 				FileDialog dlg = new FileDialog(shell,SWT.SAVE);
 				try {
 					String filename = dlg.open();
-					String content = a.getText();
+					String content = text.getText();
 					if(filename != null) {
 						Color c = text.getForeground();
 						//XML Parser Write!
 						XMLwrite writer = new XMLwrite();
 						writer.writeDown(filename, content, c);
+						c = null;
 						}
 				}
 				catch (NullPointerException ex) {

@@ -55,6 +55,7 @@ public class HSAlbSigEditor {
 	
 	public void createMenu(){
 		shell.setText("HS AlbSig Editor");
+		// Quelle: https://elearning.hs-albsig.de/Customizing/global/skin/hs-albsig/images/HeaderIcon.svg
 		Image small = new Image(display,"pictures/hsalbsig_icon.gif");
 		shell.setImage(small);
 	        
@@ -112,6 +113,7 @@ public class HSAlbSigEditor {
 		// Button für Öffnen erstellen
 		itemOpen = new CoolItem(cbar, SWT.NONE);
 		buttonOpen = new Button(cbar, SWT.PUSH);
+		// Quelle: https://icons8.com/icon/12775/opened-folder
 		Image openImage = new Image(display,"pictures/opened-folder.png");
 		buttonOpen.setImage(openImage);
 		Point size = buttonOpen.computeSize(SWT.DEFAULT, SWT.DEFAULT);
@@ -121,6 +123,7 @@ public class HSAlbSigEditor {
 		// Button für Speichern erstellen
 		itemSave = new CoolItem(cbar, SWT.NONE);
 		buttonSave = new Button(cbar, SWT.PUSH);
+		// Quelle: https://icons8.com/icon/12141/file
 		Image saveImage = new Image(display,"pictures/save-close.png");
 		buttonSave.setImage(saveImage);
 		size = buttonSave.computeSize(SWT.DEFAULT, SWT.DEFAULT);
@@ -150,7 +153,7 @@ public class HSAlbSigEditor {
 			public void widgetDisposed(DisposeEvent event) {
 				CTabItem [] allMyItems = tabFolder.getItems();
 				
-				MessageBox question = new MessageBox(shell,SWT.ICON_QUESTION | SWT.YES | SWT.NO | SWT.CANCEL);
+				MessageBox question = new MessageBox(shell,SWT.ICON_QUESTION | SWT.YES | SWT.NO);
 				question.setMessage(messages.getString("question"));
 				int answerQuit = question.open();
 				
@@ -171,7 +174,7 @@ public class HSAlbSigEditor {
 						FileDialog dlg = new FileDialog(shell,SWT.SAVE);
 						try {
 							String filename = dlg.open();
-							String content = a.getText();
+							String content = text.getText();
 							if(filename != null) {
 								Color c = text.getForeground();
 								//XML Parser Write!
@@ -184,9 +187,6 @@ public class HSAlbSigEditor {
 						}
 					}
 					shell.dispose(); 
-					break;
-				case SWT.CANCEL:
-					//shell.removeDisposeListener(this);
 					break;
 				}
 				
